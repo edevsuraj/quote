@@ -4,7 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quotes | You must know.</title>
+    <title>Quotes | That changes your life ✔️</title>
+    <meta name="description"
+        content="Explore a collection of life-changing quotes that inspire, motivate, and transform your perspective. Discover powerful words to help you grow and succeed.">
+    <meta name="keywords"
+        content="life-changing quotes, motivational quotes, inspiring quotes, personal growth, success quotes, positive quotes">
+    <meta name="author" content="Your Name or Website Name">
+    <meta property="og:title" content="Quotes | That changes your life ✔️">
+    <meta property="og:description"
+        content="Explore a collection of life-changing quotes that inspire, motivate, and transform your perspective. Discover powerful words to help you grow and succeed.">
+
     <style>
         /* Glassmorphism Styles */
         body {
@@ -41,13 +50,30 @@
             color: #ddd;
         }
 
+        .change-quote-button {
+            margin-top: 30px;
+            background-color: #fff;
+            color: #082957;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .change-quote-button:hover {
+            background-color: #dbe6e7;
+        }
+
         .edevsuraj {
             position: absolute;
             bottom: 0;
             color: white;
         }
 
-        .edevsuraj a{
+        .edevsuraj a {
             color: white;
         }
     </style>
@@ -57,6 +83,7 @@
     <div class="quote-container">
         <div class="quote">Fetching a quote...</div>
         <div class="author">- Someone</div>
+        <button class="change-quote-button">Change Quote</button>
     </div>
 
     <div class="edevsuraj">
@@ -208,12 +235,18 @@
             { text: "The secret of success is to do the common thing uncommonly well.", author: "John D. Rockefeller Jr." }
         ];
 
-        // Get a random quote
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        // Function to display a random quote
+        function displayRandomQuote() {
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.querySelector('.quote').textContent = `"${randomQuote.text}"`;
+            document.querySelector('.author').textContent = `- ${randomQuote.author}`;
+        }
 
-        // Display the quote and author
-        document.querySelector('.quote').textContent = `"${randomQuote.text}"`;
-        document.querySelector('.author').textContent = `- ${randomQuote.author}`;
+        // Event listener for button
+        document.querySelector('.change-quote-button').addEventListener('click', displayRandomQuote);
+
+        // Display an initial random quote on page load
+        displayRandomQuote();
     </script>
 </body>
 
