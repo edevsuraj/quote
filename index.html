@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        /* Glassmorphism Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6ddee5 0%, #082957 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .quote-container {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 40px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .quote {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .author {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quote-container">
+        <div class="quote">Fetching a quote...</div>
+        <div class="author">- Someone</div>
+    </div>
+
+    <script>
+        const quotes = [
+            { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+            { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
+            { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+            { text: "Happiness is not something ready-made. It comes from your own actions.", author: "Dalai Lama" },
+            { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+            { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
+            { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
+            { text: "What you get by achieving your goals is not as important as what you become by achieving your goals.", author: "Zig Ziglar" },
+            { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+            { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
+            { text: "Don’t wait. The time will never be just right.", author: "Napoleon Hill" },
+            { text: "Don’t be pushed around by the fears in your mind. Be led by the dreams in your heart.", author: "Roy T. Bennett" },
+            { text: "You don’t have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+            { text: "Believe you can and you’re halfway there.", author: "Theodore Roosevelt" },
+            { text: "Act as if what you do makes a difference. It does.", author: "William James" },
+            { text: "Your time is limited, so don’t waste it living someone else’s life.", author: "Steve Jobs" },
+            { text: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
+            { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
+            { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+            { text: "If you’re not making mistakes, then you’re not making decisions.", author: "Catherine Cook" },
+            { text: "Success is how high you bounce when you hit bottom.", author: "George S. Patton" },
+            { text: "There is no substitute for hard work.", author: "Thomas Edison" },
+            { text: "You miss 100% of the shots you don’t take.", author: "Wayne Gretzky" },
+            { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+            { text: "If you really want to do something, you’ll find a way. If you don’t, you’ll find an excuse.", author: "Jim Rohn" },
+            { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
+            { text: "The future depends on what you do today.", author: "Mahatma Gandhi" },
+            { text: "Don’t count the days, make the days count.", author: "Muhammad Ali" },
+            { text: "The harder the conflict, the greater the triumph.", author: "George Washington" },
+            { text: "Whether you think you can or you think you can’t, you’re right.", author: "Henry Ford" },
+            { text: "Only a life lived for others is a life worthwhile.", author: "Albert Einstein" },
+            { text: "Life isn’t about finding yourself. It’s about creating yourself.", author: "George Bernard Shaw" },
+            { text: "Failure is simply the opportunity to begin again, this time more intelligently.", author: "Henry Ford" },
+            { text: "Action is the foundational key to all success.", author: "Pablo Picasso" },
+            { text: "Don’t be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+            { text: "Opportunities don’t happen. You create them.", author: "Chris Grosser" },
+            { text: "If you want to achieve greatness stop asking for permission.", author: "Anonymous" },
+            { text: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill" },
+            { text: "Try not to become a man of success, but rather try to become a man of value.", author: "Albert Einstein" },
+            { text: "The harder you work for something, the greater you’ll feel when you achieve it.", author: "Anonymous" },
+            { text: "Don’t stop when you’re tired. Stop when you’re done.", author: "Marilyn Monroe" },
+            { text: "Wake up with determination. Go to bed with satisfaction.", author: "Anonymous" },
+            { text: "Do something today that your future self will thank you for.", author: "Sean Patrick Flanery" },
+            { text: "Little things make big days.", author: "John Wooden" },
+            { text: "It’s going to be hard, but hard does not mean impossible.", author: "Anonymous" },
+            { text: "Don’t wait for opportunity. Create it.", author: "Anonymous" },
+            { text: "Sometimes we’re tested not to show our weaknesses, but to discover our strengths.", author: "Anonymous" },
+            { text: "The key to success is to focus on goals, not obstacles.", author: "Anonymous" },
+            { text: "Dream it. Believe it. Build it.", author: "Anonymous" },
+            { text: "Opportunities don't happen. You create them.", author: "Chris Grosser" },
+            { text: "Failure will never overtake me if my determination to succeed is strong enough.", author: "Og Mandino" },
+            { text: "Good things come to people who wait, but better things come to those who go out and get them.", author: "Anonymous" },
+            { text: "The starting point of all achievement is desire.", author: "Napoleon Hill" },
+            { text: "Be miserable. Or motivate yourself. Whatever has to be done, it’s always your choice.", author: "Wayne Dyer" },
+            { text: "Life is 10% what happens to us and 90% how we react to it.", author: "Charles R. Swindoll" },
+            { text: "You miss 100% of the shots you don’t take.", author: "Wayne Gretzky" },
+            { text: "Failure is the condiment that gives success its flavor.", author: "Truman Capote" },
+            { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+            { text: "The best revenge is massive success.", author: "Frank Sinatra" },
+            { text: "Only I can change my life. No one can do it for me.", author: "Carol Burnett" },
+            { text: "Don’t watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+            { text: "Knowing is not enough; we must apply. Willing is not enough; we must do.", author: "Johann Wolfgang von Goethe" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "Do what you feel in your heart to be right – for you’ll be criticized anyway.", author: "Eleanor Roosevelt" },
+            { text: "Doubt kills more dreams than failure ever will.", author: "Suzy Kassem" },
+            { text: "Don’t let yesterday take up too much of today.", author: "Will Rogers" },
+            { text: "I never dreamed about success. I worked for it.", author: "Estee Lauder" },
+            { text: "Work hard in silence, let your success be your noise.", author: "Frank Ocean" },
+            { text: "Success is the sum of small efforts, repeated day in and day out.", author: "Robert Collier" },
+            { text: "Do not wait; the time will never be 'just right.'", author: "George Herbert" },
+            { text: "You are what you repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
+            { text: "Don’t let the fear of losing be greater than the excitement of winning.", author: "Robert Kiyosaki" },
+            { text: "The question isn’t who is going to let me; it’s who is going to stop me.", author: "Ayn Rand" },
+            { text: "You may have to fight a battle more than once to win it.", author: "Margaret Thatcher" },
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Motivation is what gets you started. Habit is what keeps you going.", author: "Jim Ryun" },
+            { text: "The difference between ordinary and extraordinary is that little extra.", author: "Jimmy Johnson" },
+            { text: "It’s not about ideas. It’s about making ideas happen.", author: "Scott Belsky" },
+            { text: "You can’t cross the sea merely by standing and staring at the water.", author: "Rabindranath Tagore" },
+            { text: "Be so good they can’t ignore you.", author: "Steve Martin" },
+            { text: "What you do today can improve all your tomorrows.", author: "Ralph Marston" },
+            { text: "Hard work beats talent when talent doesn’t work hard.", author: "Tim Notke" },
+            { text: "Don’t raise your voice, improve your argument.", author: "Desmond Tutu" },
+            { text: "Work as if someone is working 24 hours a day to take it away from you.", author: "Mark Cuban" },
+            { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+            { text: "I find that the harder I work, the more luck I seem to have.", author: "Thomas Jefferson" },
+            { text: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill" },
+            { text: "Start where you are. Use what you have. Do what you can.", author: "Arthur Ashe" },
+            { text: "Opportunities multiply as they are seized.", author: "Sun Tzu" },
+            { text: "Success seems to be connected with action. Successful people keep moving.", author: "Conrad Hilton" },
+            { text: "The man who moves a mountain begins by carrying away small stones.", author: "Confucius" },
+            { text: "Success is not in what you have, but who you are.", author: "Bo Bennett" },
+            { text: "Do not be embarrassed by your failures, learn from them and start again.", author: "Richard Branson" },
+            { text: "What we achieve inwardly will change outer reality.", author: "Plutarch" },
+            { text: "Success is getting what you want. Happiness is wanting what you get.", author: "W. P. Kinsella" },
+            { text: "If you can dream it, you can do it.", author: "Walt Disney" },
+            { text: "Challenges are what make life interesting. Overcoming them is what makes life meaningful.", author: "Joshua J. Marine" },
+            { text: "Success is achieved and maintained by those who try and keep trying.", author: "W. Clement Stone" },
+            { text: "Nothing will work unless you do.", author: "Maya Angelou" },
+            { text: "Fall seven times and stand up eight.", author: "Japanese Proverb" },
+            { text: "The only journey is the one within.", author: "Rainer Maria Rilke" },
+            { text: "Don’t let what you cannot do interfere with what you can do.", author: "John Wooden" },
+            { text: "The only way to achieve the impossible is to believe it is possible.", author: "Charles Kingsleigh" },
+            { text: "With self-discipline, most anything is possible.", author: "Theodore Roosevelt" },
+            { text: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
+            { text: "Don’t count the days, make the days count.", author: "Muhammad Ali" },
+            { text: "Your limitation—it’s only your imagination.", author: "Anonymous" },
+            { text: "Push yourself, because no one else is going to do it for you.", author: "Anonymous" },
+            { text: "Great things never come from comfort zones.", author: "Anonymous" },
+            { text: "Dream it. Wish it. Do it.", author: "Anonymous" },
+            { text: "Sometimes later becomes never. Do it now.", author: "Anonymous" },
+            { text: "Success doesn’t just find you. You have to go out and get it.", author: "Anonymous" },
+            { text: "The harder you work for something, the greater you’ll feel when you achieve it.", author: "Anonymous" },
+            { text: "Dream bigger. Do bigger.", author: "Anonymous" },
+            { text: "Don’t stop when you’re tired. Stop when you’re done.", author: "Anonymous" },
+            { text: "Wake up with determination. Go to bed with satisfaction.", author: "Anonymous" },
+            { text: "Do something today that your future self will thank you for.", author: "Anonymous" },
+            { text: "It’s going to be hard, but hard does not mean impossible.", author: "Anonymous" },
+            { text: "Don’t wait for opportunity. Create it.", author: "Anonymous" },
+            { text: "Sometimes we’re tested not to show our weaknesses, but to discover our strengths.", author: "Anonymous" },
+            { text: "The key to success is to focus on goals, not obstacles.", author: "Anonymous" },
+            { text: "Dream it. Believe it. Build it.", author: "Anonymous" },
+            { text: "Good things come to those who hustle.", author: "Anais Nin" },
+            { text: "If opportunity doesn’t knock, build a door.", author: "Milton Berle" },
+            { text: "A big business starts small.", author: "Richard Branson" },
+            { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+            { text: "Don’t be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+            { text: "I find that the harder I work, the more luck I seem to have.", author: "Thomas Jefferson" },
+            { text: "Success is not how high you have climbed, but how you make a positive difference to the world.", author: "Roy T. Bennett" },
+            { text: "Courage is resistance to fear, mastery of fear, not absence of fear.", author: "Mark Twain" },
+            { text: "Everything you’ve ever wanted is on the other side of fear.", author: "George Addair" },
+            { text: "Hardships often prepare ordinary people for an extraordinary destiny.", author: "C.S. Lewis" },
+            { text: "Do what you can with all you have, wherever you are.", author: "Theodore Roosevelt" },
+            { text: "The future depends on what you do today.", author: "Mahatma Gandhi" },
+            { text: "Don’t wait for your feelings to change to take action. Take the action and your feelings will change.", author: "Barbara Baron" },
+            { text: "The man on top of the mountain didn’t fall there.", author: "Vince Lombardi" },
+            { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
+            { text: "Success is a journey, not a destination.", author: "Ben Sweetland" },
+            { text: "The secret of success is to do the common thing uncommonly well.", author: "John D. Rockefeller Jr." }
+        ];
+
+        // Get a random quote
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+        // Display the quote and author
+        document.querySelector('.quote').textContent = `"${randomQuote.text}"`;
+        document.querySelector('.author').textContent = `- ${randomQuote.author}`;
+    </script>
+</body>
+
+</html>
